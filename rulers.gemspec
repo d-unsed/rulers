@@ -8,8 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Rulers::VERSION
   spec.authors       = ["Dmitry Gritsay"]
   spec.email         = ["unseductable@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{A Rack-based web-framework}
+  spec.description   = %q{A Rack-based web-framework for the
+                          "Rebuilding Rails" book}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.add_runtime_dependency "rack"
+
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
 end
