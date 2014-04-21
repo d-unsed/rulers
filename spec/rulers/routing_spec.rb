@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Rulers::Application do
   describe '#get_controller_and_action' do
-    let(:env)  {{ 'PATH_INFO' => path }}
-    let(:call!) { subject.get_controller_and_action(env) }
+    let(:call!) { subject.get_controller_and_action(path) }
 
     context 'with existing path' do
       let(:path) { '/test/action' }

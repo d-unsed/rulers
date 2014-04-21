@@ -1,7 +1,7 @@
 module Rulers
   class Application
-    def get_controller_and_action(env)
-      _, controller, action, after = env['PATH_INFO'].split('/', 4)
+    def get_controller_and_action(path_info)
+      _, controller, action, after = path_info.split('/', 4)
       controller.capitalize! << 'Controller'
       [Object.const_get(controller), action]
     end

@@ -6,6 +6,8 @@ require 'rack/test'
 
 require 'rulers'
 
+Dir['./spec/support/**/*.rb'].each { |f| require f }
+
 RSpec.configure do |config|
 	config.include Rack::Test::Methods
 

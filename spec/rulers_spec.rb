@@ -3,9 +3,9 @@ require 'rack/test'
 
 ENV['RACK_ENV'] = 'test'
 
-describe 'App' do
-	describe 'GET /' do
-		before { get '/' }
+describe Rulers::Application do
+	describe 'GET /test/index' do
+		before { get '/test/index' }
 
 		it 'is OK' do
 			expect(last_response).to be_ok
@@ -13,7 +13,13 @@ describe 'App' do
 
 		it 'has correct response text' do
 			body = last_response.body
-			expect(body).to include('Rulers')
+			expect(body).to include('Index text')
 		end
 	end
+end
+
+describe Rulers::Controller do
+	subject { Rulers::Controller.new(nil) }
+
+	it { should respond_to(:env) }
 end
