@@ -1,9 +1,17 @@
 module Rulers
   class Application
+    CONTENT_TYPE = { 'Content-Type' => 'text/html' }
+
     def call(env)
-      if env['PATH_INFO'] == '/favicon.ico'
-        return [404, { 'Content-Type' => 'text/html' }, []]
-      end
+      response = case env['PATH_INFO']
+                 when '/'
+                   contents = File.read('public/index.html')
+                   compose_response(200, contents)
+                 when '/favicon.ico'
+                   compose_response(404, nil)
+                 end
+
+      return response if response
 
       klass, action = get_controller_and_action(env['PATH_INFO'])
       controller = klass.new(env)
@@ -16,10 +24,14 @@ module Rulers
     def call_action(controller, action)
       begin
         text = controller.send(action)
-        [200, { 'Content-Type' => 'text/html' }, [text]]
+        compose_response(200, text)
       rescue Exception
-        [500, { 'Content-Type' => 'text/html' }, ['Server error']]
+        compose_response(500, 'Server error')
       end
+    end
+
+    def compose_response(status, text)
+      [status, CONTENT_TYPE, [text]]
     end
   end
 end

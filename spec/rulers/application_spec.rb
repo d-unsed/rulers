@@ -16,6 +16,17 @@ describe Rulers::Application do
     its(:status) { should eq(500) }
   end
 
+  describe 'GET /' do
+    before do
+      File.stub(:read).with('public/index.html')
+        .and_return('public/index.html contents')
+      get '/'
+    end
+
+    it { should be_ok }
+    its(:body) { should include('public/index.html contents') }
+  end
+
   describe 'GET /favicon.ico' do
     before { get '/favicon.ico' }
 
