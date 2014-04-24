@@ -22,7 +22,7 @@ describe Rulers::Application do
       let(:path) { '/fail/action' }
 
       it 'raises error' do
-        expect { call! }.to raise_error(NameError)
+        expect { call! }.to raise_error(LoadError)
       end
     end
   end
