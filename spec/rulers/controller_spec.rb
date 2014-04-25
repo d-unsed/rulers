@@ -5,6 +5,17 @@ describe Rulers::Controller do
 
   it { should respond_to(:env) }
 
+  describe '#controller_name' do
+    let(:call!) { controller.controller_name }
+
+    before { controller.stub(:class).and_return('TestController') }
+
+    it 'deletes "Controller" and calls to_underscore' do
+      expect(Rulers).to receive(:to_underscore).with('Test')
+      call!
+    end
+  end
+
   describe '#render' do
     let(:eruby)     { double() }
     let(:view_name) { 'index' }
@@ -17,11 +28,12 @@ describe Rulers::Controller do
       File.stub(:read).and_return('Template contents')
       Erubis::Eruby.stub(:new).and_return(eruby)
       controller.stub(:env).and_return(env)
+      controller.stub(:controller_name).and_return('test')
       eruby.stub(:result)
     end
 
     it 'reads a template' do
-      expect(File).to receive(:read).with('app/views/index.html.erb')
+      expect(File).to receive(:read).with('app/views/test/index.html.erb')
       call!
     end
 
