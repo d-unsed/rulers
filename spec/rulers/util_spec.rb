@@ -24,7 +24,7 @@ describe Rulers do
       it { should eq('camel_cased1_string') }
     end
 
-    context 'with camel case c' do
+    context 'with multiple capital letters in a row' do
       let(:str) { 'WEIRDCamelCase' }
       it { should eq('weird_camel_case') }
     end

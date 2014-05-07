@@ -4,21 +4,16 @@ describe Rulers::Application do
   describe '#get_controller_and_action' do
     let(:call!) { subject.get_controller_and_action(path) }
 
-    context 'with existing path' do
+    context 'with existing controller' do
       let(:path) { '/test/action' }
+      before { stub_const('TestController', Class.new) }
 
-      it 'calls object' do
-        expect(Object).to receive(:const_get).with('TestController')
-        call!
-      end
-
-      it 'returns correct array' do
-        stub_const('TestController', Class.new)
+      it 'extracts correct controller and action' do
         expect(call!).to eq([TestController, 'action'])
       end
     end
 
-    context 'with nonexistent path' do
+    context 'with nonexistent controller' do
       let(:path) { '/fail/action' }
 
       it 'raises error' do
